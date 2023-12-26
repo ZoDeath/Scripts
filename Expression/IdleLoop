@@ -1,0 +1,26 @@
+// 객체에 움직임을 부여하고 이 움직임을 특정 시간 동안 반복하는 기능을 수행
+
+// freq = 1; // 'freq'는 wiggle 함수의 빈도를 설정합니다. 여기서 1은 초당 한 번의 변동을 의미함.
+amp = 110; // 'amp'는 wiggle 함수의 진폭을 설정합니다. 이 값은 변동의 최대 크기를 결정함.
+loopTime = 3; // 'loopTime'은 움직임이 반복되는 전체 주기를 초 단위로 설정함.
+
+// 't'는 현재 시간을 loopTime으로 나눈 나머지를 저장. 이는 움직임을 반복하기 위한 계산임.
+t = time % loopTime; 
+
+// 'wiggle1'은 현재 시간에서의 wiggle 값을 계산.
+wiggle1 = wiggle(freq, amp, 1, 0.5, t);
+
+// 'wiggle2'는 이전 루프 주기에서의 wiggle 값을 계산.
+wiggle2 = wiggle(freq, amp, 1, 0.5, t - loopTime);
+
+// 'linear' 함수는 시간 't'에 따라 'wiggle1'과 'wiggle2' 사이를 부드럽게 보간.
+linear(t, 0, loopTime, wiggle1, wiggle2);
+
+
+freq = 1;
+amp = 110;
+loopTime = 3;
+t = time % loopTime;
+wiggle1 = wiggle(freq, amp, 1, 0.5, t);
+wiggle2 = wiggle(freq, amp, 1, 0.5, t - loopTime);
+linear(t, 0, loopTime, wiggle1, wiggle2)
