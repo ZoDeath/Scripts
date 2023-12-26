@@ -1,0 +1,40 @@
+function updateCellsForButton() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  // 체크박스 업데이트 (J32:J51 -> J8:J27)
+  var checkboxSourceRange = sheet.getRange('J32:J51');
+  var checkboxValues = checkboxSourceRange.getValues();
+  for (var i = 0; i < checkboxValues.length; i++) {
+    checkboxValues[i][0] = (checkboxValues[i][0] === '완료') ? '완료' : '미완료';
+  }
+  var checkboxTargetRange = sheet.getRange('J8:J27');
+  checkboxTargetRange.setValues(checkboxValues);
+
+  // 드롭다운 값 복사 (D32:D51 -> D8:D27)
+  var dropdownSourceRange = sheet.getRange('D32:D51');
+  var dropdownTargetRange = sheet.getRange('D8:D27');
+  dropdownSourceRange.copyTo(dropdownTargetRange, { contentsOnly: true });
+
+  // 유튜브 썸네일 이미지 처리 (I32:I51 -> C32:C51)
+  for (var row = 32; row <= 51; row++) {
+    var youtubeUrlCell = sheet.getRange('I' + row);
+    var youtubeUrl = youtubeUrlCell.getValue();
+    var videoId = youtubeUrl.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\s&]+)/);
+
+    if (videoId && videoId[1]) {
+      var thumbnailUrl = "https://img.youtube.com/vi/" + videoId[1] + "/0.jpg";
+      sheet.getRange('C' + row).setFormula('=IMAGE("' + thumbnailUrl + '")');
+      youtubeUrlCell.setValue(youtubeUrl); // URL 직접 입력
+      youtubeUrlCell.setNote('클릭하여 링크 열기'); // 노트에 클릭 안내 문구 추가
+      youtubeUrlCell.setFontColor('blue'); // URL 텍스트 색상 변경
+    } else {
+      // 유튜브 URL이 없는 경우 썸네일 셀을 비웁니다.
+      sheet.getRange('C' + row).clearContent();
+    }
+  }
+
+  // 텍스트 복사 (E32:G51 -> E8:G27)
+  var textSourceRange = sheet.getRange('E32:G51');
+  var textTargetRange = sheet.getRange('E8:G27');
+  textSourceRange.copyTo(textTargetRange, { contentsOnly: true });
+}
