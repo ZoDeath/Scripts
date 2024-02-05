@@ -32,3 +32,39 @@ t = time % loopTime;
 wiggle1 = wiggle(freq, amp, 1, 0.5, t);
 wiggle2 = wiggle(freq, amp, 1, 0.5, t - loopTime);
 linear(t, 0, loopTime, wiggle1, wiggle2);
+
+//좌우 움직임
+freq = 2;
+amp = 70;
+loopTime = 20;
+t = time % loopTime;
+xWiggle = wiggle(freq, amp, 1, 0.5, t);
+yValue = value[1]; // Y 위치는 현재값을 유지함
+wiggle1 = [xWiggle[0], yValue];
+
+t = time % loopTime;
+xWiggle = wiggle(freq, amp, 1, 0.5, t - loopTime);
+wiggle2 = [xWiggle[0], yValue];
+
+[xPos, yPos] = linear(t, 0, loopTime, wiggle1, wiggle2);
+[xPos, value[1]]; 
+
+
+//상하 움직임
+freq = 1;
+amp = 30;
+frameCount = 600; // 원하는 프레임 수
+fps = 30; // 프레임 속도
+loopTime = frameCount / fps; // 프레임 수를 초 단위로 변환
+t = time % loopTime;
+yWiggle = wiggle(freq, amp, 1, 0.5, t);
+xValue = value[0]; // X 위치는 현재값을 유지함
+wiggle1 = [xValue, yWiggle[1]];
+
+t = time % loopTime;
+yWiggle = wiggle(freq, amp, 1, 0.5, t - loopTime);
+wiggle2 = [xValue, yWiggle[1]];
+
+[xPos, yPos] = linear(t, 0, loopTime, wiggle1, wiggle2);
+[value[0], yPos];
+
