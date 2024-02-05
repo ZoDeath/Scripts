@@ -33,6 +33,8 @@ wiggle1 = wiggle(freq, amp, 1, 0.5, t);
 wiggle2 = wiggle(freq, amp, 1, 0.5, t - loopTime);
 linear(t, 0, loopTime, wiggle1, wiggle2);
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 //좌우 움직임
 freq = 2;
 amp = 70;
@@ -49,6 +51,7 @@ wiggle2 = [xWiggle[0], yValue];
 [xPos, yPos] = linear(t, 0, loopTime, wiggle1, wiggle2);
 [xPos, value[1]]; 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 //상하 움직임
 freq = 1;
