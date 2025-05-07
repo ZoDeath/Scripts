@@ -1,3 +1,4 @@
+```shaderlab
 // RHV/fx-UITrail-Addtive.shader
 Shader "RHV/fx-UITrail-Addtive"
 {
@@ -75,3 +76,4 @@ Shader "RHV/fx-UITrail-Addtive"
         ENDCG }
     }
 }
+```
