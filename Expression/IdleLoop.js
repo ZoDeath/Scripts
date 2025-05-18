@@ -1,3 +1,14 @@
+freq = 1;
+amp = 10;
+fps = 30;
+loopTime = 120 / fps;
+
+t = time % loopTime;
+wiggle1 = wiggle(freq, amp, 1, 0.5, t);
+wiggle2 = wiggle(freq, amp, 1, 0.5, t - loopTime);
+
+linear(t, 0, loopTime, wiggle1, wiggle2);
+
 // 객체에 움직임을 부여하고 이 움직임을 특정 시간 동안 반복하는 기능을 수행
 // 반복적인 루프 실행시 실행되는 프레임 수를 설정함
 
